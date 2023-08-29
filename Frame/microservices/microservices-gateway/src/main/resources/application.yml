@@ -1,0 +1,27 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: microservices-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.20.10.9:8848
+      username: nacos
+      password: nacos
+
+    gateway:
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 10s
+      routes:
+        #employee服务
+        - id: microservices-employee
+          uri: lb://microservices-employee
+          predicates:
+            - Path=/gateway/employee/**
+          filter:
+            - StripPrefix=1
+
+      encodeKey: hi!microservices
