@@ -25,19 +25,30 @@
         <mysql-connector.version>8.0.32</mysql-connector.version>
         <druid.version>1.2.6</druid.version>
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
-        <httpcore.version>4.4.14</httpcore.version>
-        <httpclient.version>4.5.13</httpclient.version>
+        <http.version>11.10</http.version>
+        <caffeine.version>2.9.3</caffeine.version>
         <servlet.version>2.5</servlet.version>
+        <spring-retry.version>1.3.4</spring-retry.version>
+        <spring-security-bom.version>5.8.4</spring-security-bom.version>
+        <spring-security-oauth-authorization-server-version>0.4.3</spring-security-oauth-authorization-server-version>
     </properties>
 
     <modules>
         <module>common-core</module>
         <module>common-datasource</module>
         <module>common-feign</module>
+        <module>common-security</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-bom</artifactId>
+                <version>${spring-security-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

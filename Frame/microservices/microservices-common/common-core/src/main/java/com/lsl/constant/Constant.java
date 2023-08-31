@@ -31,4 +31,24 @@ public interface Constant {
      * 锁定
      */
     String STATUS_LOCK = "9";
+
+    /**
+     * 编码
+     */
+    String UTF8 = "UTF-8";
+
+    /**
+     * JSON 资源
+     */
+    String CONTENT_TYPE = "application/json; charset=utf-8";
+
+    /**
+     * size
+     */
+    String SIZE = "size";
+
+    /**
+     * 当前页
+     */
+    String CURRENT = "current";
 }

@@ -1,7 +1,7 @@
 package com.lsl.auth.support.password;
 
-import com.lsl.auth.base.OAuth2ResourceOwnerBaseAuthenticationConverter;
-import com.lsl.auth.utils.OAuth2EndpointUtils;
+import com.lsl.auth.support.base.OAuth2ResourceOwnerBaseAuthenticationConverter;
+import com.lsl.security.utils.OAuth2EndpointUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;

@@ -1,6 +1,6 @@
 package com.lsl.auth.support.password;
 
-import com.lsl.auth.base.OAuth2ResourceOwnerBaseAuthenticationToken;
+import com.lsl.auth.support.base.OAuth2ResourceOwnerBaseAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
