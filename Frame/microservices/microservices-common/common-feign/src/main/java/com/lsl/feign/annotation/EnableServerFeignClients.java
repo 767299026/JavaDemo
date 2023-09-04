@@ -40,16 +40,16 @@ public @interface EnableServerFeignClients {
 	String[] value() default {};
 
 	/**
-	 * Base packages to scan for annotated components.
-	 * <p>
-	 * {@link #value()} is an alias for (and mutually exclusive with) this attribute.
-	 * <p>
-	 * Use {@link #basePackageClasses()} for a type-safe alternative to String-based
-	 * package names.
-	 *
-	 * @return the array of 'basePackages'.
-	 */
-	String[] basePackages() default {"com.pig4cloud.pig"};
+     * Base packages to scan for annotated components.
+     * <p>
+     * {@link #value()} is an alias for (and mutually exclusive with) this attribute.
+     * <p>
+     * Use {@link #basePackageClasses()} for a type-safe alternative to String-based
+     * package names.
+     *
+     * @return the array of 'basePackages'.
+     */
+    String[] basePackages() default {"com.lsl"};
 
 	/**
 	 * Type-safe alternative to {@link #basePackages()} for specifying the packages to

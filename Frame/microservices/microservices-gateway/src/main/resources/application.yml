@@ -16,12 +16,24 @@ spring:
         connect-timeout: 1000
         response-timeout: 10s
       routes:
-        #employee服务
-        - id: microservices-employee
-          uri: lb://microservices-employee
+        #person服务
+        - id: microservices-person-biz
+          uri: lb://person-biz
           predicates:
-            - Path=/gateway/employee/**
-          filter:
-            - StripPrefix=1
+            - Path=/admin/person/**
+        #person服务
+        - id: microservices-department
+          uri: lb://microservices-department
+          predicates:
+        - Path=/admin/dept/**
+        #person服务
+        - id: microservices-exam
+          uri: lb://microservices-exam
+          predicates:
+            - Path=/admin/exam/**
 
       encodeKey: hi!microservices
+
+      discovery:
+        locator:
+          enabled: true

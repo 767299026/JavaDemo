@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.lsl.feign.config.FeignAutoConfiguration,\
+  com.lsl.feign.config.FeignRetryAutoConfiguration,\
+  com.lsl.feign.config.SentinelAutoConfiguration,\
+  com.lsl.feign.sentinel.handle.GlobalBizExceptionHandler

@@ -47,7 +47,6 @@ import java.util.List;
 @Order(10000)
 @RestControllerAdvice
 @ConditionalOnExpression("!'${security.oauth2.client.clientId}'.isEmpty()")
-@Configuration
 public class GlobalBizExceptionHandler {
 
 	/**

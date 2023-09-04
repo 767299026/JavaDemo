@@ -16,19 +16,18 @@
 
 package com.lsl.security.service;
 
-import com.lsl.security.vo.SecurityUser;
 import com.lsl.constant.CacheConstant;
 import com.lsl.constant.SecurityConstant;
+import com.lsl.security.vo.SecurityUser;
 import com.lsl.utils.R;
-import dto.UserDTO;
-import dto.UserInfo;
-import feign.RemoteUserService;
+import com.lsl.user.api.dto.UserDTO;
+import com.lsl.user.api.dto.UserInfo;
+import com.lsl.user.api.feign.RemoteUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -38,7 +37,6 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @Slf4j
 @Primary
-@Configuration
 @RequiredArgsConstructor
 public class UserDetailServiceImpl implements UserDetailService {
 

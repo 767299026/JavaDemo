@@ -11,6 +11,11 @@ public interface CacheConstant {
     String USER_DETAILS = "user_details";
 
     /**
+     * 角色信息缓存
+     */
+    String ROLE_DETAILS = "role_details";
+
+    /**
      * oauth 客户端信息
      */
     String CLIENT_DETAILS_KEY = "client:details";

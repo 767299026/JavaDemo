@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsl.user.dao.UserMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="baseResultMap" type="com.lsl.user.api.vo.UserVO">
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="phone" property="phone"/>
+        <result column="avatar" property="avatar"/>
+        <result column="wx_openid" property="wxOpenid"/>
+        <result column="qq_openid" property="qqOpenid"/>
+        <result column="gitee_login" property="giteeOpenId"/>
+        <result column="ucreate_time" property="createTime"/>
+        <result column="uupdate_time" property="updateTime"/>
+        <result column="lock_flag" property="lockFlag"/>
+        <result column="udel_flag" property="delFlag"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="dept_name" property="deptName"/>
+        <result column="nickname" property="nickname"/>
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <collection property="roleList" ofType="com.lsl.user.api.entity.Role"
+                    select="com.lsl.user.dao.RoleMapper.listRolesByUserId" column="user_id">
+        </collection>
+    </resultMap>
+
+    <insert id="insert">
+        insert into user(user_id, username, password, salt, phone, avatar, nickname, name, email, dept_id, create_by,
+                         update_by, create_time, update_time, lock_flag, del_flag, qq_openid, wx_openid, gitee_login)
+        values (#{userId}, #{username}, #{password}, #{salt}, #{phone}, #{avatar}, #{nickname}, #{name}, #{email},
+                #{deptId}, #{createBy},
+                #{updateBy}, #{createTime}, #{updateTime}, #{lockFlag}, #{delFlag}, #{qqOpenid}, #{wxOpenid},
+                #{giteeLogin})
+    </insert>
+
+    <delete id="removeAllByUserIds">
+        delete from user where user_id in
+        <foreach collection="list" item="userIds" open="(" separator="," close=")">
+            #{userIds}
+        </foreach>
+    </delete>
+
+    <update id="updateById">
+        UPDATE user
+        <set>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="salt != null">salt = #{salt},</if>
+            <if test="createBy != null">createBy = #{createBy},</if>
+            <if test="updateBy != null">updateBy = #{updateBy},</if>
+            <if test="createTime != null">createTime = #{createTime},</if>
+            <if test="updateTime != null">updateTime = #{updateTime},</if>
+            <if test="delFlag != null">delFlag = #{delFlag},</if>
+            <if test="lockFlag != null">lockFlag = #{lockFlag},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="deptId != null">deptId = #{deptId},</if>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="wxOpenid != null">wxOpenid = #{wxOpenid},</if>
+            <if test="qqOpenid != null">qqOpenid = #{qqOpenid},</if>
+            <if test="giteeLogin != null">giteeLogin = #{giteeLogin}</if>
+        </set>
+        where userId = #{userId}
+    </update>
+
+    <update id="updatePassword">
+        update user
+        set password = #{password}
+        where user_id = #{userId}
+    </update>
+
+    <select id="queryInfoByNameAndPhone" resultType="com.lsl.user.api.entity.User">
+        select *
+        from user
+        where username = #{username}
+          and phone = #{phone}
+    </select>
+
+    <select id="queryInfoByName" resultType="com.lsl.user.api.entity.User">
+        select *
+        from user
+        where username = #{username}
+    </select>
+
+    <select id="queryInfoById" resultMap="baseResultMap">
+        select
+        <include refid="userRoleDeptSql"/>
+        from user u left join dept d
+        on d.dept_id = u.dept_id and d.del_flag = '0'
+        where u.user_id = #{id} and u.del_flag = '0'
+    </select>
+
+    <select id="query" resultType="com.lsl.user.api.entity.User">
+        select * from user
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="username != null">
+                AND username = #{username}
+            </if>
+            <if test="password != null">
+                AND password = #{password}
+            </if>
+            <if test="salt != null">
+                AND salt = #{salt}
+            </if>
+            <if test="createBy != null">
+                AND create_by = #{createBy}
+            </if>
+            <if test="updateBy != null">
+                AND update_by = #{updateBy}
+            </if>
+            <if test="createTime != null">
+                AND create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND update_time = #{updateTime}
+            </if>
+            <if test="delFlag != null">
+                AND del_flag = #{delFlag}
+            </if>
+            <if test="lockFlag != null">
+                AND lock_flag = #{lockFlag}
+            </if>
+            <if test="phone != null">
+                AND phone = #{phone}
+            </if>
+            <if test="avatar != null">
+                AND avatar = #{avatar}
+            </if>
+            <if test="deptId != null">
+                AND dept_id = #{deptId}
+            </if>
+            <if test="nickname != null">
+                AND nickname = #{nickname}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+            <if test="email != null">
+                AND email = #{email}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAllByUserIds" resultType="com.lsl.user.api.entity.User">
+        select * from user where user_id in
+        <foreach collection="list" item="userIds" open="(" separator="," close=")">
+            #{userIds}
+        </foreach>
+    </select>
+
+    <select id="getUserVoPage" resultMap="baseResultMap">
+        select
+        <include refid="userVosPage"/>
+        from user u left join dept d
+        on d.dept_id = u.user_id
+        <where>
+            u.del_flag = '0'
+            <if test="userDTO.username != null and userDTO.username != ''">
+                <bind name="usernameLike" value="'%'+userDTO.username+'%'"/>
+                AND u.username LIKE #{usernameLike}
+            </if>
+            <if test="userDTO.deptId != null and userDTO.deptId != ''">
+                AND u.dept_id = #{userDTO.deptId}
+            </if>
+            <if test="userDTO.phone != null and userDTO.phone != ''">
+                <bind name="phoneLike" value="'%'+userDTO.phone+'%'"/>
+                AND u.phone LIKE #{phoneLike}
+            </if>
+        </where>
+
+        <if test="_databaseId != 'mssql'">
+            ORDER BY u.create_time DESC
+        </if>
+    </select>
+
+    <select id="getUserVoByUsername" resultMap="baseResultMap">
+        select
+        <include refid="userRoleSql"/>
+        from user u
+        left join user_role urole
+        on urole.user_id = u.user_id
+        left join role r
+        on r.role_id = urole.role_id and r.del_flag = '0'
+        where u.username = #{username} and u.del_flag = '0'
+    </select>
+
+    <sql id="userRoleSql">
+        u.user_id,
+        u.username,
+        u.password,
+        u.salt,
+        u.phone,
+        u.avatar,
+        u.wx_openid,
+        u.qq_openid,
+        u.dept_id,
+        u.del_flag,
+        u.lock_flag,
+        u.tenant_id,
+        u.create_by,
+        u.create_time  ucreate_time,
+        u.update_time  uupdate_time,
+        r.role_id,
+        r.role_name,
+        r.role_code,
+        r.role_desc,
+        r.create_time  rcreate_time,
+        r.update_time  rupdate_time
+    </sql>
+
+    <sql id="userRoleDeptSql">
+        u.user_id,
+        u.username,
+        u.password,
+        u.salt,
+        u.phone,
+        u.avatar,
+        u.wx_openid,
+        u.qq_openid,
+    	u.gitee_login
+        u.del_flag,
+        u.lock_flag,
+        u.nickname,
+        u.name,
+        u.email,
+        u.create_by,
+        u.create_time  ucreate_time,
+        u.update_time  uupdate_time,
+        d.name  dept_name,
+        d.dept_id
+    </sql>
+
+    <sql id="userVosPage">
+        u.user_id,
+        u.username,
+        u.password,
+        u.salt,
+        u.phone,
+        u.avatar,
+        u.wx_openid,
+        u.qq_openid,
+        u.dept_id,
+        u.create_by,
+        u.create_time ucreate_time,
+        u.update_time uupdate_time,
+        u.del_flag,
+        u.lock_flag,
+        u.nickname,
+        u.name,
+        u.email,
+        d.name dept_name
+    </sql>
+</mapper>

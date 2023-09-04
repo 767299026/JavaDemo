@@ -53,6 +53,9 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+            <exclusions>
+
+            </exclusions>
         </dependency>
         <!--监控客户端-->
         <dependency>

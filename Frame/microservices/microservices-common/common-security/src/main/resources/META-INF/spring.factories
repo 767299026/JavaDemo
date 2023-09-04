@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.lsl.security.service.UserDetailServiceImpl,\
+  com.lsl.security.service.RedisOAuth2AuthorizationService,\
+  com.lsl.security.aspect.SecurityInnerAspect,\
+  com.lsl.security.config.SecurityMessageSourceConfiguration,\
+  com.lsl.security.repository.RemoteRegisteredClientRepository

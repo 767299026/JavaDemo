@@ -1,7 +1,6 @@
 package com.lsl.security.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
@@ -9,7 +8,6 @@ import org.springframework.util.Assert;
 
 import java.util.concurrent.TimeUnit;
 
-@Configuration
 @RequiredArgsConstructor
 public class RedisOAuth2AuthorizationConsentService implements OAuth2AuthorizationConsentService {
 

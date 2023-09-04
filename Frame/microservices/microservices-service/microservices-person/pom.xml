@@ -12,8 +12,8 @@
     <artifactId>microservices-person</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>person-api</module>
-        <module>person-biz</module>
+        <module>user-api</module>
+        <module>user-biz</module>
     </modules>
 
     <properties>

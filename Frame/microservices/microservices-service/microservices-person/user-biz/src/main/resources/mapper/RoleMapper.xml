@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsl.user.dao.RoleMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lsl.user.api.entity.Role">
+		<id column="role_id" property="roleId"/>
+		<result column="role_name" property="roleName"/>
+		<result column="role_code" property="roleCode"/>
+		<result column="role_desc" property="roleDesc"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="del_flag" property="delFlag"/>
+	</resultMap>
+
+	<select id="listAllByRoleId" resultType="com.lsl.user.api.entity.Role">
+		select * from role where role_id in
+		<foreach collection="list" item="RoleIds" open="(" separator="," close=")">
+			#{RoleIds}
+		</foreach>
+	</select>
+
+	<select id="listRolesByUserId" resultMap="BaseResultMap">
+		select role.role_id,
+			   role.role_name,
+			   role.role_code,
+			   role.role_desc,
+			   role.create_time,
+			   role.update_time,
+			   role.del_flag
+		from role,
+			 user_role
+		where role.role_id = user_role.role_id
+		  and role.del_flag = '0'
+		  and user_role.user_id = #{userId}
+	</select>
+
+	<select id="queryRoleByCode" resultMap="BaseResultMap">
+		select *
+		from role
+		where role_code = #{roleCode}
+	</select>
+</mapper>

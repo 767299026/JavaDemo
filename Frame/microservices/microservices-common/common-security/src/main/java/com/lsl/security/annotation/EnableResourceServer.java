@@ -17,7 +17,7 @@
 package com.lsl.security.annotation;
 
 import com.lsl.security.config.FeignClientConfiguration;
-import com.lsl.security.config.PigResourceServerAutoConfiguration;
+import com.lsl.security.config.ResourceServerAutoConfiguration;
 import com.lsl.security.config.ResourceServerConfiguration;
 import org.springframework.context.annotation.Import;
 
@@ -31,7 +31,7 @@ import java.lang.annotation.*;
 @Inherited
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import({PigResourceServerAutoConfiguration.class, ResourceServerConfiguration.class,
+@Import({ResourceServerAutoConfiguration.class, ResourceServerConfiguration.class,
         FeignClientConfiguration.class})
 public @interface EnableResourceServer {
 
